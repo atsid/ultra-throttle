@@ -42,7 +42,7 @@ function initialize(conf) {
                 debug(`${name}[${bucket.hits}/${hitsPerTtlWindow}]; ${timeUntilReset} until reset`);
                 request.rateBucket = bucket;
 
-                if (bucket.hits < hitsPerTtlWindow) {
+                if (bucket.hits <= hitsPerTtlWindow) {
                     next();
                 } else {
                     response.statusCode = 429;
