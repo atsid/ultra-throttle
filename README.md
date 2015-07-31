@@ -1,3 +1,9 @@
+[![Build Status](https://travis-ci.org/atsid/middleware-throttle.svg)](https://travis-ci.org/atsid/middleware-throttle)
+[![Code Climate](https://codeclimate.com/github/atsid/middleware-throttle/badges/gpa.svg)](https://codeclimate.com/github/atsid/middleware-throttle)
+[![Test Coverage](https://codeclimate.com/github/atsid/middleware-throttle/badges/coverage.svg)](https://codeclimate.com/github/atsid/middleware-throttle/coverage)
+[![Dependency Status](https://david-dm.org/atsid/middleware-throttle.svg)](https://david-dm.org/atsid/middleware-throttle)
+[![devDependency Status](https://david-dm.org/atsid/middleware-throttle/dev-status.svg)](https://david-dm.org/atsid/middleware-throttle#info=devDependencies)
+
 # middleware-throttle
 
 NodeJS Rate-Limiting Middleware
