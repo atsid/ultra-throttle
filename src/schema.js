@@ -1,6 +1,6 @@
 const IP_ADDR_REGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
-module.exports = (config) => {
+module.exports = function schema(config) {
     return {
         name: {
             type: String,
@@ -17,7 +17,7 @@ module.exports = (config) => {
             type: Date,
             required: true,
             'default': Date.now,
-            expires: config.rateLimits.ttl,
+            expires: config.ttl,
         },
         hits: {
             type: Number,

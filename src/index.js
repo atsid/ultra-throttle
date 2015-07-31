@@ -1,10 +1,12 @@
 /**
  * Adapted from https://apicatus-laboratory.rhcloud.com/2014/04/13/rate-limit-your-nodejs-api-with-mongodb/
  */
-
-const JPromise = Promise || require('bluebird');
-const debug = require('debug')('middleware-throttle');
 const model = require('./model');
+const Configuration = require('./Configuration');
+const BucketManager = require('./BucketManager');
+const getIpAddress = require('./getIpAddress');
+const getTimeUntilReset = require('./getTimeUntilReset');
+const getHitsRemaining = require('./getHitsRemaining');
 
 /**
  * Initializes the rate throttling middleware
@@ -14,62 +16,10 @@ const model = require('./model');
  *         mongoose: The mongoose instance used by the application
  *     }
  */
-function initialize(config) {
+function initialize(conf) {
+    const config = new Configuration(conf);
     const RateBuckets = model.initialize(config);
-    const TTL_WINDOW = config.ttl;
-
-    /**
-     * Creates a new named Rate Bucket for the given IP Address.
-     */
-    function createRateBucket(ip, name) {
-        return new JPromise((resolve, reject) => {
-            const rateBucket = new RateBuckets({name, ip});
-            rateBucket.save(function onRateBucketSave(error, saved) {
-                if (error) {
-                    reject(error);
-                } else if (!rateBucket) {
-                    reject(new Error('Cant\' create rate limit bucket'));
-                } else {
-                    resolve(saved);
-                }
-            });
-        });
-    }
-
-    /**
-     * Attempts to increment an existing rate bucket.
-     */
-    function incrementRateBucket(ip, name) {
-        return new JPromise((resolve, reject) => {
-            RateBuckets
-            .findOneAndUpdate({ip, name}, { $inc: { hits: 1 } }, { upsert: false })
-            .exec((err, bucket) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(bucket);
-                }
-            });
-        });
-    }
-
-    /**
-     * Gets a named rate bucket for a given IP Address
-     */
-    function getRateBucket(ip, name) {
-        return incrementRateBucket(ip, name)
-        .then((bucket) => bucket || createRateBucket(ip, name));
-    }
-
-    /**
-     * Extracts an IP Address from the given request
-     */
-    function getIpAddress(request) {
-        return request.headers['x-forwarded-for'] ||
-            request.connection.remoteAddress ||
-            request.socket.remoteAddress ||
-            request.connection.socket.remoteAddress;
-    }
+    const bucketManager = new BucketManager(RateBuckets);
 
     /**
      * The primary client function, invoking this function creates a middleware function that will perform rate limiting.
@@ -81,12 +31,10 @@ function initialize(config) {
     function limit(name, hitsPerTtlWindow) {
         return function limitMiddleware(request, response, next) {
             const ip = getIpAddress(request);
-            getRateBucket(config, ip, name)
+            bucketManager.increment(ip, name)
             .then((bucket) => {
-                const timeUntilReset = TTL_WINDOW - (new Date().getTime() - bucket.createdAt.getTime());
-                const remaining = Math.max(0, (hitsPerTtlWindow - bucket.hits));
-                debug(JSON.stringify(bucket, null, 4));
-
+                const timeUntilReset = getTimeUntilReset(bucket, config.ttl);
+                const remaining = getHitsRemaining(bucket, hitsPerTtlWindow);
                 response.set('X-Rate-Limit-Limit', hitsPerTtlWindow);
                 response.set('X-Rate-Limit-Remaining', remaining);
                 response.set('X-Rate-Limit-Reset', timeUntilReset);
