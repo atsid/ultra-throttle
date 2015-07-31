@@ -1,6 +1,8 @@
 const IP_ADDR_REGEX = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+const debug = require('debug')('ultra-throttle');
 
 module.exports = function schema(config) {
+    debug(`throttles will expire with ttl ${config.ttl}`);
     return {
         name: {
             type: String,

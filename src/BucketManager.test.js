@@ -1,12 +1,12 @@
 const {expect} = require('chai');
 const BucketManager = require('./BucketManager');
-
 const mongoose = require('mongoose');
 const mockgoose = require('mockgoose');
 mockgoose(mongoose);
 
 const model = require('./model');
 const RateBucket = model.initialize({mongoose});
+const debug = require('debug')('ultra-throttle');
 
 const IP_ADDR = '192.168.0.1';
 
@@ -43,6 +43,7 @@ describe('The Bucket Manager', () => {
                 let bucketId = null;
                 return instance.increment(IP_ADDR, 'get_stuff')
                 .then((bucket) => {
+                    debug('bucket', bucket);
                     bucketId = bucket.__id;
                     expect(bucket.hits).to.equal(1);
                     return instance.increment(IP_ADDR, 'get_stuff');

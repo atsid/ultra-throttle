@@ -32,7 +32,7 @@ function initialize(conf) {
     function limit(name, hitsPerTtlWindow) {
         return function limitMiddleware(request, response, next) {
             const ip = getIpAddress(request);
-            bucketManager.increment(ip, name)
+            return bucketManager.increment(ip, name)
             .then((bucket) => {
                 const timeUntilReset = getTimeUntilReset(bucket, config.ttl);
                 const remaining = getHitsRemaining(bucket, hitsPerTtlWindow);
