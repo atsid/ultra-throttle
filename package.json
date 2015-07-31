@@ -1,0 +1,44 @@
+{
+  "name": "middleware-throttle",
+  "version": "0.0.1",
+  "description": "NodeJS API Throttling Middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp",
+    "report-coverage": "codeclimate-test-reporter < coverage/lcov.info"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "middleware",
+    "throttle"
+  ],
+  "author": "Christopher Trevino",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "babel": "^5.8.19",
+    "babel-eslint": "^4.0.5",
+    "chai": "^3.2.0",
+    "codeclimate-test-reporter": "0.1.0",
+    "del": "^1.1.1",
+    "express": "^4.12.2",
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.2.0",
+    "gulp-bump": "^0.3.0",
+    "gulp-changed": "^1.1.1",
+    "gulp-cli": "^0.3.0",
+    "gulp-eslint": "^0.15.0",
+    "gulp-filter": "^3.0.0",
+    "gulp-git": "^1.1.0",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-mocha": "^2.0.0",
+    "gulp-semver-tasks": "^0.1.0",
+    "gulp-tag-version": "^1.2.1",
+    "isparta": "^3.0.3",
+    "run-sequence": "^1.0.2",
+    "supertest": "^1.0.1"
+  },
+  "dependencies": {
+    "debug": "^2.2.0"
+  }
+}
