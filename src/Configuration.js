@@ -13,6 +13,10 @@ class Configuration {
         }
         this.mongoose = conf.mongoose;
         this.ttl = conf.ttl || DEFAULT_TTL;
+        this.index = conf.index;
+        if (this.index === undefined) {
+            this.index = true;
+        }
     }
 }
 

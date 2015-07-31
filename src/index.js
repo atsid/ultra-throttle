@@ -18,8 +18,8 @@ const getHitsRemaining = require('./getHitsRemaining');
  */
 function initialize(conf) {
     const config = new Configuration(conf);
-    const RateBuckets = model.initialize(config);
-    const bucketManager = new BucketManager(RateBuckets);
+    const RateBucket = model.initialize(config);
+    const bucketManager = new BucketManager(RateBucket);
 
     /**
      * The primary client function, invoking this function creates a middleware function that will perform rate limiting.
