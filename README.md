@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/atsid/middleware-throttle.svg)](https://travis-ci.org/atsid/middleware-throttle)
-[![Code Climate](https://codeclimate.com/github/atsid/middleware-throttle/badges/gpa.svg)](https://codeclimate.com/github/atsid/middleware-throttle)
-[![Test Coverage](https://codeclimate.com/github/atsid/middleware-throttle/badges/coverage.svg)](https://codeclimate.com/github/atsid/middleware-throttle/coverage)
-[![Dependency Status](https://david-dm.org/atsid/middleware-throttle.svg)](https://david-dm.org/atsid/middleware-throttle)
-[![devDependency Status](https://david-dm.org/atsid/middleware-throttle/dev-status.svg)](https://david-dm.org/atsid/middleware-throttle#info=devDependencies)
+[![Build Status](https://travis-ci.org/atsid/ultra-throttle.svg)](https://travis-ci.org/atsid/ultra-throttle)
+[![Code Climate](https://codeclimate.com/github/atsid/ultra-throttle/badges/gpa.svg)](https://codeclimate.com/github/atsid/ultra-throttle)
+[![Test Coverage](https://codeclimate.com/github/atsid/ultra-throttle/badges/coverage.svg)](https://codeclimate.com/github/atsid/ultra-throttle/coverage)
+[![Dependency Status](https://david-dm.org/atsid/ultra-throttle.svg)](https://david-dm.org/atsid/ultra-throttle)
+[![devDependency Status](https://david-dm.org/atsid/ultra-throttle/dev-status.svg)](https://david-dm.org/atsid/ultra-throttle#info=devDependencies)
 
 # ultra-throttle
 

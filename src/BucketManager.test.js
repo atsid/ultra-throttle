@@ -41,17 +41,16 @@ describe('The Bucket Manager', () => {
 
             it('can increment an existing rate bucket', () => {
                 let bucketId = null;
-                return instance.increment(IP_ADDR, 'get_stuff')
+                return instance.increment(IP_ADDR, 'get_stuff', 100)
                 .then((bucket) => {
                     debug('bucket', bucket);
                     bucketId = bucket.__id;
                     expect(bucket.hits).to.equal(1);
-                    return instance.increment(IP_ADDR, 'get_stuff');
+                    return instance.increment(IP_ADDR, 'get_stuff', 100);
                 })
                 .then((bucket) => {
                     expect(bucket.__id).to.equal(bucketId);
                     expect(bucket.hits).to.equal(2);
-                    return instance.increment(IP_ADDR, 'get_stuff');
                 });
             });
         });

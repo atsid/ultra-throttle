@@ -21,6 +21,7 @@ function initialize(conf) {
     const config = new Configuration(conf);
     const RateBucket = model.initialize(config);
     const bucketManager = new BucketManager(RateBucket);
+    const ttl = config.ttl;
 
     /**
      * The primary client function, invoking this function creates a middleware function that will perform rate limiting.
@@ -32,9 +33,9 @@ function initialize(conf) {
     function limit(name, hitsPerTtlWindow) {
         return function limitMiddleware(request, response, next) {
             const ip = getIpAddress(request);
-            return bucketManager.increment(ip, name)
+            return bucketManager.increment(ip, name, ttl)
             .then((bucket) => {
-                const timeUntilReset = getTimeUntilReset(bucket, config.ttl);
+                const timeUntilReset = getTimeUntilReset(bucket, ttl);
                 const remaining = getHitsRemaining(bucket, hitsPerTtlWindow);
                 response.set('X-Rate-Limit-Limit', hitsPerTtlWindow);
                 response.set('X-Rate-Limit-Remaining', remaining);

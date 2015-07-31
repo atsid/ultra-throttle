@@ -29,10 +29,16 @@ class BucketManager {
     /**
      * Attempts to increment an existing rate bucket.
      */
-    _incrementRateBucket(ip, name) {
+    _incrementRateBucket(ip, name, ttl) {
+        const earliestCreateDate = new Date(new Date().getTime() - (ttl * 1000));
+        const criteria = {
+            ip,
+            name,
+            createdAt: { $gt: earliestCreateDate },
+        };
         return new JPromise((resolve, reject) => {
             this.RateBucket
-            .findOneAndUpdate({ip, name}, { $inc: { hits: 1 } }, { upsert: false })
+            .findOneAndUpdate(criteria, { $inc: { hits: 1 } }, { upsert: false })
             .exec((err, bucket) => (err && reject(err)) || resolve(bucket));
         });
     }
@@ -40,8 +46,8 @@ class BucketManager {
     /**
      * Gets a named rate bucket for a given IP Address
      */
-    increment(ip, name) {
-        return this._incrementRateBucket(ip, name)
+    increment(ip, name, ttl) {
+        return this._incrementRateBucket(ip, name, ttl)
         .then((bucket) => bucket || this._createRateBucket(ip, name));
     }
 }
