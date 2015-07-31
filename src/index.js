@@ -7,6 +7,7 @@ const BucketManager = require('./BucketManager');
 const getIpAddress = require('./getIpAddress');
 const getTimeUntilReset = require('./getTimeUntilReset');
 const getHitsRemaining = require('./getHitsRemaining');
+const debug = require('debug')('ultra-throttle');
 
 /**
  * Initializes the rate throttling middleware
@@ -38,6 +39,7 @@ function initialize(conf) {
                 response.set('X-Rate-Limit-Limit', hitsPerTtlWindow);
                 response.set('X-Rate-Limit-Remaining', remaining);
                 response.set('X-Rate-Limit-Reset', timeUntilReset);
+                debug(`${name}[${bucket.hits}/${hitsPerTtlWindow}]; ${timeUntilReset} until reset`);
                 request.rateBucket = bucket;
 
                 if (bucket.hits < hitsPerTtlWindow) {
@@ -47,6 +49,7 @@ function initialize(conf) {
                     response.json({error: 'RateLimit', message: 'Too Many Requests'});
                 }
             }).catch((err) => {
+                debug('error throttling - ', err);
                 response.statusCode = 500;
                 next(err);
             });
@@ -56,4 +59,4 @@ function initialize(conf) {
     return limit;
 }
 
-module.exports = {initialize};
+module.exports = initialize;

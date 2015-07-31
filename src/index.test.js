@@ -14,11 +14,11 @@ describe('The throttling middleware entry point', () => {
 
     describe('the initialize function', () => {
         it('throws when invoked with no arguments', () => {
-            expect(() => limiter.initialize()).to.throw(/conf must be defined/);
+            expect(() => limiter()).to.throw(/conf must be defined/);
         });
 
         it('can construct a limiter instance', () => {
-            const limit = limiter.initialize({mongoose});
+            const limit = limiter({mongoose});
             expect(limit).to.be.ok;
             expect(limit).to.be.a.function;
         });
@@ -26,7 +26,7 @@ describe('The throttling middleware entry point', () => {
 
     describe('the limiter function returned by initialize', () => {
         let limit = null;
-        beforeEach(() => limit = limiter.initialize({mongoose}));
+        beforeEach(() => limit = limiter({mongoose}));
 
         it('exists', () => expect(limit).to.be.a.function);
 
