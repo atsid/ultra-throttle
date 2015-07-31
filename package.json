@@ -1,5 +1,5 @@
 {
-  "name": "middleware-throttle",
+  "name": "ultra-throttle",
   "version": "0.0.1",
   "description": "NodeJS API Throttling Middleware",
   "main": "index.js",
