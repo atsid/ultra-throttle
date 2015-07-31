@@ -1,6 +1,6 @@
 {
   "name": "ultra-throttle",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "NodeJS API Throttling Middleware",
   "main": "index.js",
   "scripts": {
