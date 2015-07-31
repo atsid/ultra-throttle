@@ -4,8 +4,15 @@
 [![Dependency Status](https://david-dm.org/atsid/middleware-throttle.svg)](https://david-dm.org/atsid/middleware-throttle)
 [![devDependency Status](https://david-dm.org/atsid/middleware-throttle/dev-status.svg)](https://david-dm.org/atsid/middleware-throttle#info=devDependencies)
 
-# middleware-throttle
+# ultra-throttle
 
-NodeJS Rate-Limiting Middleware
+NodeJS/MongoDB Rate-Limiting Middleware
+
+## Usage
+```js
+const throttle = require('ultra-throttle')({mongoose});
+const HITS_PER_WINDOW = 100;
+app.get('/my-stuff', throttle('getMyStuff', HITS_PER_WINDOW));
+```
 
 Based on https://apicatus-laboratory.rhcloud.com/2014/04/13/rate-limit-your-nodejs-api-with-mongodb/
