@@ -15,6 +15,9 @@
   ],
   "author": "Christopher Trevino",
   "license": "Apache-2.0",
+  "dependencyNotes": {
+    "mongoose": "Mongoose has been pinned to 3.8.25 for compatibility with mockgoose for testing"
+  },
   "devDependencies": {
     "babel": "^5.8.19",
     "babel-eslint": "^4.0.5",
@@ -32,10 +35,15 @@
     "gulp-git": "^1.1.0",
     "gulp-istanbul": "^0.10.0",
     "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.1",
     "gulp-semver-tasks": "^0.1.0",
     "gulp-tag-version": "^1.2.1",
+    "gulp-util": "^3.0.6",
     "isparta": "^3.0.3",
+    "mockgoose": "^2.0.3",
+    "mongoose": "3.8.25",
     "run-sequence": "^1.0.2",
+    "sinon": "^1.15.4",
     "supertest": "^1.0.1"
   },
   "dependencies": {
