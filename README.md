@@ -12,7 +12,12 @@ NodeJS/MongoDB Rate-Limiting Middleware
 ```js
 const throttle = require('ultra-throttle')({mongoose});
 const HITS_PER_WINDOW = 100;
-app.get('/my-stuff', throttle('getMyStuff', HITS_PER_WINDOW));
+app.get('/my-stuff', [throttle('getMyStuff', HITS_PER_WINDOW)], (req, res, next) => {...});
 ```
+
+## Configuration Options
+* **mongoose** - (*required*) - the Mongoose instance to attach the RateBucket models to
+* **ttl** - (*optional, default: 5 minutes*) - The time-window we will define throttling buckets for across the application
+* **index** - (*optional, default: true*) - Whether to create a MongoDB index for the RateBucket models.
 
 Based on https://apicatus-laboratory.rhcloud.com/2014/04/13/rate-limit-your-nodejs-api-with-mongodb/
