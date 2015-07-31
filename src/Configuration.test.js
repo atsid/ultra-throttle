@@ -19,8 +19,7 @@ describe('The Configuration class', () => {
         const conf = new Configuration({mongoose});
         expect(conf).to.be.ok;
         expect(conf.mongoose).to.equal(mongoose);
-        expect(conf.index).to.be.true;
-        expect(conf.ttl).to.equal(5 * 60 * 1000);
+        expect(conf.ttl).to.equal(5 * 60); // 5 minutes in seconds
     });
 
     it('can be constructed with a TTL window parameter', () => {
@@ -30,12 +29,5 @@ describe('The Configuration class', () => {
         expect(conf).to.be.ok;
         expect(conf.mongoose).to.equal(mongoose);
         expect(conf.ttl).to.equal(ttl);
-    });
-
-    it('can be constructed with an indexing', () => {
-        const mongoose = { a: 1 };
-        const conf = new Configuration({mongoose, index: false});
-        expect(conf).to.be.ok;
-        expect(conf.index).to.be.false;
     });
 });

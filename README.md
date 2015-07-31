@@ -17,7 +17,6 @@ app.get('/my-stuff', [throttle('getMyStuff', HITS_PER_WINDOW)], (req, res, next)
 
 ## Configuration Options
 * **mongoose** - (*required*) - the Mongoose instance to attach the RateBucket models to
-* **ttl** - (*optional, default: 5 minutes*) - The time-window we will define throttling buckets for across the application
-* **index** - (*optional, default: true*) - Whether to create a MongoDB index for the RateBucket models.
+* **ttl** - (*optional, default: 5 minutes*) - The time-window for throttling across the application. Expressed in seconds.
 
 Based on https://apicatus-laboratory.rhcloud.com/2014/04/13/rate-limit-your-nodejs-api-with-mongodb/

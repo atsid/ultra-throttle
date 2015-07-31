@@ -1,4 +1,4 @@
-const DEFAULT_TTL = 5 * 60 * 1000; // 5 minutes
+const DEFAULT_TTL = 5 * 60; // 5 minutes
 
 /**
  * A configuration object for the middleware throttle
@@ -13,10 +13,6 @@ class Configuration {
         }
         this.mongoose = conf.mongoose;
         this.ttl = conf.ttl || DEFAULT_TTL;
-        this.index = conf.index;
-        if (this.index === undefined) {
-            this.index = true;
-        }
     }
 }
 
